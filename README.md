@@ -49,7 +49,7 @@ enum CoreDataStack {
     
     static let container: NSPersistentContainer = {
         
-        let container = NSPersistentContainer(name: "MedicationManager")
+        let container = NSPersistentContainer(name: "Task_CoreData")
         container.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Error loading persistent stores: \(error)")
