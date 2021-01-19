@@ -19,7 +19,7 @@ Students who complete this project independently are able to:
 1. Create a UITableViewController file called `TaskListTableViewController`
 2. Add a UITableViewController scene to your `Main.storybaord` that will be used to list tasks. Class it as a `TaskListTableViewController`
 3. Embed the scene in a UINavigationController and set it as your apps initial entry point
-4. In your `TaskListTableViewController`, set your table view's prototype style to `basic` (_we will change this later to be a custom style_)
+4. In your `TaskListTableViewController`, set your table view's prototype style to `basic` (_we will change this later to bView e a custom style_)
 5. Give your cell a reuseIdentifier of `taskCell`
 6. Add an `Add` system bar button item to the navigation bar
 7. Create a UIViewController file called  `TaskDetailViewController` 
@@ -49,7 +49,7 @@ enum CoreDataStack {
     
     static let container: NSPersistentContainer = {
         
-        let container = NSPersistentContainer(name: "MedicationManager")
+        let container = NSPersistentContainer(name: "Task_CoreData")
         container.loadPersistentStores { (_, error) in
             if let error = error {
                 fatalError("Error loading persistent stores: \(error)")
