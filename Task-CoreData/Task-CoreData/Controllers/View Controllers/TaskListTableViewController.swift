@@ -20,13 +20,25 @@ class TaskListTableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        TaskController.shared.sections.count
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if section == 0 {
+            return "Incomplete Tasks"
+        } else {
+            return "Completed"
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return TaskController.shared.tasks.count
+        return TaskController.shared.sections[section].count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "taskCell", for: indexPath) as? TaskTableViewCell else { return UITableViewCell() }
-        let index = TaskController.shared.tasks[indexPath.row]
+        let index = TaskController.shared.sections[indexPath.section][indexPath.row]
         
         cell.delegate = self
         cell.task = index
@@ -37,7 +49,7 @@ class TaskListTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let taskToDelete = TaskController.shared.tasks[indexPath.row]
+            let taskToDelete = TaskController.shared.sections[indexPath.section][indexPath.row]
             TaskController.shared.delete(task: taskToDelete)
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -48,7 +60,7 @@ class TaskListTableViewController: UITableViewController {
         if segue.identifier == "toTaskDetails" {
             guard let indexPath = tableView.indexPathForSelectedRow,
                   let destination = segue.destination as? TaskDetailViewController else { return }
-            let taskToSend = TaskController.shared.tasks[indexPath.row]
+            let taskToSend = TaskController.shared.sections[indexPath.section][indexPath.row]
             destination.task = taskToSend
         }
     }
@@ -59,6 +71,8 @@ extension TaskListTableViewController: TaskCompletionDelegate {
     func taskCellButtonTapped(_ sender: TaskTableViewCell) {
         guard let task = sender.task else { return }
         TaskController.shared.toggleIsComplete(task: task)
+        TaskController.shared.updateTaskCompletion(task: task)
         sender.updateViews()
+        tableView.reloadData()
     }
 }//End of Extension
