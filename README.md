@@ -76,17 +76,17 @@ enum CoreDataStack {
 
 ## Implement Core Data Model
 * Add a New Entity called Task with attributes for name (String), notes (String), dueDate (Date), and isComplete (Bool).
-* Use the Data Model inspector to set notes and due to optional values and give isComplete a default value of false.
+* Use the Data Model inspector to set notes and dueDate to optional values and give isComplete a default value of false.
 
 Now you need to add a convenience initializer for your Task objects that matches what would normally be a member-wise initializer. NSManagedObjects have a designated initializer called init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) and a convenience initializer called init(context: NSManagedObjectContext). You will write your own convenience initializer that uses the NSManagedObject convenience initializer and sets the properties on a Task object.
 * Create a new file called Task+Convenience.swift.
 * Add an extension to Task and create your convenience initializer inside of the extension
-    * note: Make sure the initializer has parameters for name, notes, due, and context and that each parameter takes in the right type (context will be of type NSManagedObjectContext).
-    * note: Remember that notes and due are optional, therefore, you can give them default values of nil. Also, give context a default value of CoreDataStack.context.
+    * note: Make sure the initializer has parameters for name, notes, dueDate, and context and that each parameter takes in the right type (context will be of type NSManagedObjectContext).
+    * note: Remember that notes and dueDate are optional, therefore, you can give them default values of nil. Also, give context a default value of CoreDataStack.context.
 * Inside the body of the initializer set your Task properties and call the NSManagedObject convenience initializer and pass in context from your own convenience initializer —> self.init(context: context)
 
 
-* Create function signatures for add(taskWithName name: String, notes: String?, due: Date?), update(task: Task, name: String, notes: String?, due: Date?), remove(task: Task), and fetchTasks().
+* Create function signatures for add(taskWithName name: String, notes: String?, dueDate: Date?), update(task: Task, name: String, notes: String?, dueDate: Date?), remove(task: Task), and fetchTasks().
 
 ## Create a TaskController
 Create a TaskController model object controller that will manage and serve Task objects to the rest of the application.
@@ -120,7 +120,7 @@ Recall that you created two segues from the List View to the Detail View. The se
 ## TaskDetailViewController
 1. If you haven't already, delete any boiler-plate code, including the navigation section
 2.  If you haven't already, create an optional landing pad property to receive a task from your `TaskListTableViewController`. (_Consider naming this `task`_)
-3. Add a property, `var date: Date?`. This will be used to capture the users selected due date
+3. Add a property, `var date: Date?`. This will be used to capture the user's selected due date
 4. Build out your `saveButtonTapped` IBAction. Make sure to pop the view controller after your code has been executed. (_Note: If your `task` landing pad is nil, this button should create a new task. If your `task` has a value, then the save button should update your existing task. Make sure, in both instances, to pass the task name, notes, and date (from the `date` variable you created._)
 5. In your `dueDatePickerDateChanged` IBAction, set the `date` variable you created to the date value of your `taskDueDatePicker`
 
@@ -171,7 +171,7 @@ At this point you should be able to run your project and toggle tasks directly f
 
 ## Black Diamonds
 * Add the ability to delete tasks
-* Add the tasks due date to your custom cell, and use a `dateFormatter` to make the date readable.
+* Add the task's due date to your custom cell, and use a `dateFormatter` to make the date readable.
 * Add support for projects (task parent object), or tags (task child object) to categorize your tasks
 * Add support for due date notifications scheduled to fire when the task is due
 * Add a segmented control as the title view that toggles whether the table view should display complete or incomplete tasks
