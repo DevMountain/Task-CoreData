@@ -76,7 +76,7 @@ enum CoreDataStack {
 
 ## Implement Core Data Model
 * Add a New Entity called Task with attributes for name (String), notes (String), dueDate (Date), and isComplete (Bool).
-* Use the Data Model inspector to set notes and dueDate to optional values and give isComplete a default value of false.
+* Use the Data Model inspector to set notes and dueDate to optional values and give isComplete a default value of false (this will be done in your convenience intializer).
 
 Now you need to add a convenience initializer for your Task objects that matches what would normally be a member-wise initializer. NSManagedObjects have a designated initializer called init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) and a convenience initializer called init(context: NSManagedObjectContext). You will write your own convenience initializer that uses the NSManagedObject convenience initializer and sets the properties on a Task object.
 * Create a new file called Task+Convenience.swift.
@@ -84,9 +84,6 @@ Now you need to add a convenience initializer for your Task objects that matches
     * note: Make sure the initializer has parameters for name, notes, dueDate, and context and that each parameter takes in the right type (context will be of type NSManagedObjectContext).
     * note: Remember that notes and dueDate are optional, therefore, you can give them default values of nil. Also, give context a default value of CoreDataStack.context.
 * Inside the body of the initializer set your Task properties and call the NSManagedObject convenience initializer and pass in context from your own convenience initializer —> self.init(context: context)
-
-
-* Create function signatures for add(taskWithName name: String, notes: String?, dueDate: Date?), update(task: Task, name: String, notes: String?, dueDate: Date?), remove(task: Task), and fetchTasks().
 
 ## Create a TaskController
 Create a TaskController model object controller that will manage and serve Task objects to the rest of the application.
