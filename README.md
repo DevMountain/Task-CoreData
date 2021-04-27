@@ -76,7 +76,7 @@ enum CoreDataStack {
 
 ## Implement Core Data Model
 * Add a New Entity called Task with attributes for name (String), notes (String), dueDate (Date), and isComplete (Bool).
-* Use the Data Model inspector to set notes and due to optional values and give isComplete a default value of false.
+* Use the Data Model inspector to set notes and due to optional values, and give isComplete a default value of false (this will be done in your convenience initializer).
 
 Now you need to add a convenience initializer for your Task objects that matches what would normally be a member-wise initializer. NSManagedObjects have a designated initializer called init(entity: NSEntityDescription, insertInto context: NSManagedObjectContext?) and a convenience initializer called init(context: NSManagedObjectContext). You will write your own convenience initializer that uses the NSManagedObject convenience initializer and sets the properties on a Task object.
 * Create a new file called Task+Convenience.swift.
